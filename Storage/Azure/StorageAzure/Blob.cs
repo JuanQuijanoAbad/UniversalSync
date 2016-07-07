@@ -9,7 +9,14 @@ namespace StorageAzure
 {
     public class Blob
     {
-        public Boolean Put(Stream objeto)
-        { return false; }
+        public void Put(FileStream objeto)
+        {
+            var fichero = Path.GetFileName(objeto.Name);
+
+            var container = new BlobContanier().Create();
+            var blob = container.GetBlockBlobReference(fichero);
+
+            blob.UploadFromStreamAsync(objeto);
+        }
     }
 }
