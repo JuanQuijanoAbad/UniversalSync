@@ -16,13 +16,33 @@ namespace StorageAzure.Tests
         public void PutTest()
         {
             var Blob = new Blob();
-            var objeto = File.OpenRead(@"C:\Users\jc_qu\Source\Repos\UniversalSync\Storage\Azure\StorageAzureTests\20160514_195832.jpg");
+            var objeto = File.OpenRead(@"..\..\20160514_195832.jpg");
+            var fileName = Path.GetFileName(objeto.Name);
 
             Blob.Put(objeto);
-
             objeto.Close();
 
+            Assert.IsTrue(Blob.Exist(fileName));
+        }
+        [TestMethod()]
+        public void ExistTest()
+        {
+            var Blob = new Blob();
+            var fileName = "20160514_195832.jpg";
+
+            Blob.Exist(fileName);
+
             Assert.IsTrue(true);
+        }
+        [TestMethod()]
+        public void DeleteTest()
+        {
+            var Blob = new Blob();
+            var fileName = "20160514_195832.jpg";
+
+            Blob.Delete(fileName);
+
+            Assert.IsFalse(Blob.Exist(fileName));
         }
     }
 }

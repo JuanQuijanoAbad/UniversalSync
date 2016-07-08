@@ -16,7 +16,24 @@ namespace StorageAzure
             var container = new BlobContanier().Create();
             var blob = container.GetBlockBlobReference(fichero);
 
-            blob.UploadFromStreamAsync(objeto);
+            blob.UploadFromStream(objeto);
+        }
+        public Boolean Exist(string fileName)
+        {
+            var existe = false;
+
+            var container = new BlobContanier().Create();
+            var blob = container.GetBlockBlobReference(fileName);
+            existe = blob.Exists();
+
+            return existe;
+        }
+
+        public async Task<Boolean> Delete(string fileName)
+        {
+            var container = new BlobContanier().Create();
+            var blob = container.GetBlockBlobReference(fileName);
+            return await blob.DeleteIfExistsAsync();
         }
     }
 }
