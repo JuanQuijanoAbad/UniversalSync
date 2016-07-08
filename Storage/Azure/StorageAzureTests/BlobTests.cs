@@ -25,6 +25,17 @@ namespace StorageAzure.Tests
             Assert.IsTrue(Blob.Exist(fileName));
         }
         [TestMethod()]
+        public void GetTest()
+        {
+            var Blob = new Blob();
+            var fileName = "20160514_195832.jpg";
+            
+            var fichero = Blob.Get(fileName);
+            
+            Assert.IsNotNull(fichero);
+            Assert.IsTrue(fichero.Length > 0);
+        }
+        [TestMethod()]
         public void ExistTest()
         {
             var Blob = new Blob();

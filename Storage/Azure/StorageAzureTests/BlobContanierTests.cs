@@ -13,12 +13,12 @@ namespace StorageAzure.Tests
     public class BlobContanierTests
     {
         [TestMethod()]
-        public void CreateTest()
+        public void CreateContainerTest_desde_parametro()
         {
             var referencia = "juanquijano";
             var blobcontainer = new BlobContanier();
 
-            CloudBlobContainer blob = blobcontainer.Create();
+            CloudBlobContainer blob = blobcontainer.Create(referencia);
 
             Assert.IsNotNull(blob);
             Assert.AreEqual(referencia, blob.Name);

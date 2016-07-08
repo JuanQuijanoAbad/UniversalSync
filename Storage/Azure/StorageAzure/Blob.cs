@@ -20,13 +20,10 @@ namespace StorageAzure
         }
         public Boolean Exist(string fileName)
         {
-            var existe = false;
-
             var container = new BlobContanier().Create();
             var blob = container.GetBlockBlobReference(fileName);
-            existe = blob.Exists();
 
-            return existe;
+            return blob.Exists();
         }
 
         public async Task<Boolean> Delete(string fileName)
@@ -34,6 +31,15 @@ namespace StorageAzure
             var container = new BlobContanier().Create();
             var blob = container.GetBlockBlobReference(fileName);
             return await blob.DeleteIfExistsAsync();
+        }
+
+        public Stream Get(string fileName)
+        {
+            Stream file = new MemoryStream();
+            var container = new BlobContanier().Create();
+            var blob = container.GetBlockBlobReference(fileName);
+            blob.DownloadToStream(file);
+            return file;
         }
     }
 }
