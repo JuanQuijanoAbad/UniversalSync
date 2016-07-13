@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.File;
 using StorageAzure;
 using System;
 using System.Collections.Generic;
@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 namespace StorageAzure.Tests
 {
     [TestClass()]
-    public class BlobContanierTests
+    public class FileContainerTests
     {
         [TestMethod()]
-        public void CreateContainer()
+        public void FileContainer_Create()
         {
-            var blobcontainer = new BlobContanier();
+            var fileContainer = new FileContainer();
 
-            CloudBlobContainer blob = blobcontainer.Create();
+            CloudFileShare resultado = fileContainer.Create();
 
-            Assert.IsNotNull(blob);
+            Assert.IsTrue(resultado.Exists());
         }
     }
 }
