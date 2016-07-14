@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Text;
 
 namespace StorageAzure.Tests
 {
@@ -15,7 +16,7 @@ namespace StorageAzure.Tests
             return blob.Exists();
         }
 
-        [TestMethod()]
+        //[TestMethod()]
         public void BlobPut()
         {
             var blob = new Blob();
@@ -27,7 +28,7 @@ namespace StorageAzure.Tests
 
             Assert.IsTrue(Exist(fileName));
         }
-        [TestMethod()]
+        //[TestMethod()]
         public void BlobPut_Fichero_de_55_Mb()
         {
             var blob = new Blob();
@@ -39,26 +40,39 @@ namespace StorageAzure.Tests
 
             Assert.IsTrue(Exist(fileName));
         }
-        [TestMethod()]
+        //[TestMethod()]
         public void BlobGet()
         {
             var blob = new Blob();
             var fileName = "20160514_195832.jpg";
-            
+
             var fichero = blob.Get(fileName);
-            
+
             Assert.IsNotNull(fichero);
             Assert.IsTrue(fichero.Length > 0);
         }
-        [TestMethod()]
-        public void BlobDelete()
+        //[TestMethod()]
+        public void BlobDelete(string fichero)
         {
             var blob = new Blob();
-            var fileName = "20160514_195832.jpg";
 
-            blob.Delete(fileName);
+            blob.Delete(fichero);
 
-            Assert.IsFalse(Exist(fileName));
+            Assert.IsFalse(Exist(fichero));
+        }
+
+        [TestMethod()]
+        public void Operaciones_CRUD_en_el_Azure_Blob()
+        {
+            var blob = new Blob();
+            var imagen = "20160514_195832.jpg";
+            var video = "20160512_194750.mp4";
+
+            BlobPut();
+            BlobGet();
+            BlobPut_Fichero_de_55_Mb();
+            blob.Delete(imagen);
+            blob.Delete(video);
         }
     }
 }
