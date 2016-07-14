@@ -28,6 +28,18 @@ namespace StorageAzure.Tests
             Assert.IsTrue(Exist(fileName));
         }
         [TestMethod()]
+        public void BlobPut_Fichero_de_55_Mb()
+        {
+            var blob = new Blob();
+            var objeto = File.OpenRead(@"..\..\20160512_194750.mp4");
+            var fileName = Path.GetFileName(objeto.Name);
+
+            blob.Put(objeto);
+            objeto.Close();
+
+            Assert.IsTrue(Exist(fileName));
+        }
+        [TestMethod()]
         public void BlobGet()
         {
             var blob = new Blob();
