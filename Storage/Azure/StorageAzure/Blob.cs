@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageAzure
 {
@@ -18,21 +14,12 @@ namespace StorageAzure
 
             blob.UploadFromStream(objeto);
         }
-        public Boolean Exist(string fileName)
+        public Boolean Delete(string fileName)
         {
             var container = new BlobContanier().Create();
             var blob = container.GetBlockBlobReference(fileName);
-
-            return blob.Exists();
+            return blob.DeleteIfExists();
         }
-
-        public async Task<Boolean> Delete(string fileName)
-        {
-            var container = new BlobContanier().Create();
-            var blob = container.GetBlockBlobReference(fileName);
-            return await blob.DeleteIfExistsAsync();
-        }
-
         public Stream Get(string fileName)
         {
             Stream file = new MemoryStream();

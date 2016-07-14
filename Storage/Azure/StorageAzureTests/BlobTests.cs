@@ -1,59 +1,52 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StorageAzure;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageAzure.Tests
 {
     [TestClass()]
     public class BlobTests
     {
-        [TestMethod()]
-        public void PutTest()
+        public Boolean Exist(string fileName)
         {
-            var Blob = new Blob();
+            var container = new BlobContanier().Create();
+            var blob = container.GetBlockBlobReference(fileName);
+
+            return blob.Exists();
+        }
+
+        [TestMethod()]
+        public void BlobPut()
+        {
+            var blob = new Blob();
             var objeto = File.OpenRead(@"..\..\20160514_195832.jpg");
             var fileName = Path.GetFileName(objeto.Name);
 
-            Blob.Put(objeto);
+            blob.Put(objeto);
             objeto.Close();
 
-            Assert.IsTrue(Blob.Exist(fileName));
+            Assert.IsTrue(Exist(fileName));
         }
         [TestMethod()]
-        public void GetTest()
+        public void BlobGet()
         {
-            var Blob = new Blob();
+            var blob = new Blob();
             var fileName = "20160514_195832.jpg";
             
-            var fichero = Blob.Get(fileName);
+            var fichero = blob.Get(fileName);
             
             Assert.IsNotNull(fichero);
             Assert.IsTrue(fichero.Length > 0);
         }
         [TestMethod()]
-        public void ExistTest()
+        public void BlobDelete()
         {
-            var Blob = new Blob();
+            var blob = new Blob();
             var fileName = "20160514_195832.jpg";
 
-            Blob.Exist(fileName);
+            blob.Delete(fileName);
 
-            Assert.IsTrue(true);
-        }
-        [TestMethod()]
-        public void DeleteTest()
-        {
-            var Blob = new Blob();
-            var fileName = "20160514_195832.jpg";
-
-            Blob.Delete(fileName);
-
-            Assert.IsFalse(Blob.Exist(fileName));
+            Assert.IsFalse(Exist(fileName));
         }
     }
 }
