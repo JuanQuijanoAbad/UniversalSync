@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using StorageAzure;
 
 namespace UniversalSync_Client_Console
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        [STAThread]
+        public static void Main(string[] args)
         {
+            var filesPaths = SelectFolder.RecursiveAndFiles();
+            var resultado = new SendFilesToCloud(new Blob()).PutAllFiles(filesPaths);
+            Console.WriteLine("Pulsa una tecla");
+            Console.ReadKey();
         }
     }
 }

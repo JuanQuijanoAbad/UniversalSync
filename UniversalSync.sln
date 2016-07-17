@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{907A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{5C24B4B5-760A-4583-AF12-FBE3040A967E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageAzure", "Storage\Azure\StorageAzure\StorageAzure.csproj", "{E1D20640-7A0F-4534-99DD-8F00BA51FEEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudStorage", "Storage\Azure\StorageAzure\CloudStorage.csproj", "{E1D20640-7A0F-4534-99DD-8F00BA51FEEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageAzureTests", "Storage\Azure\StorageAzureTests\StorageAzureTests.csproj", "{37016765-C145-4FD1-A8F8-4A61CE694164}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consola", "Consola", "{144A96DF-B973-4946-9C80-D7D58C72316E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalSync_Client_Console", "UniversalSync_Client_Console\UniversalSync_Client_Console.csproj", "{68BF7FA9-79ED-444E-8157-0006A8098776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalSync_Client_ConsoleTests", "UniversalSync_Client_ConsoleTests\UniversalSync_Client_ConsoleTests.csproj", "{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{68BF7FA9-79ED-444E-8157-0006A8098776}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68BF7FA9-79ED-444E-8157-0006A8098776}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68BF7FA9-79ED-444E-8157-0006A8098776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

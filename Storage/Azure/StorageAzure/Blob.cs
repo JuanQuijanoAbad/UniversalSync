@@ -4,16 +4,27 @@ using System.Text;
 
 namespace StorageAzure
 {
-    public class Blob
+    public class Blob: ICloudRepository
     {
-        public void Put(FileStream objeto)
+        public bool Put(FileStream objeto)
         {
-            var fichero = Path.GetFileName(objeto.Name);
+            var resultado = false;
+            try
+            {
+                var fichero = Path.GetFileName(objeto.Name);
 
-            var container = new BlobContanier().Create();
-            var blob = container.GetBlockBlobReference(fichero);
+                var container = new BlobContanier().Create();
+                var blob = container.GetBlockBlobReference(fichero);
 
-            blob.UploadFromStream(objeto);
+                blob.UploadFromStream(objeto);
+                resultado = true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return resultado;
         }
         public Boolean Delete(string fileName)
         {

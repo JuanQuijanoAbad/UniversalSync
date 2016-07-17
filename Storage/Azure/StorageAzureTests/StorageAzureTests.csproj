@@ -89,9 +89,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StorageAzure\StorageAzure.csproj">
+    <ProjectReference Include="..\StorageAzure\CloudStorage.csproj">
       <Project>{E1D20640-7A0F-4534-99DD-8F00BA51FEEF}</Project>
-      <Name>StorageAzure</Name>
+      <Name>CloudStorage</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
