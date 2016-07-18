@@ -6,15 +6,19 @@ namespace StorageAzure
 {
     public class Blob: ICloudRepository
     {
+        IAzureBlobContainer _blobContainer;
+
+        public Blob(IAzureBlobContainer blobContainer)
+        {
+            _blobContainer = blobContainer;
+        }
         public bool Put(FileStream objeto)
         {
             var resultado = false;
             try
             {
                 var fichero = Path.GetFileName(objeto.Name);
-
-                var container = new BlobContanier().Create();
-                var blob = container.GetBlockBlobReference(fichero);
+                var blob = _blobContainer.container.GetBlockBlobReference(fichero);
 
                 blob.UploadFromStream(objeto);
                 resultado = true;
@@ -28,15 +32,13 @@ namespace StorageAzure
         }
         public Boolean Delete(string fileName)
         {
-            var container = new BlobContanier().Create();
-            var blob = container.GetBlockBlobReference(fileName);
+            var blob = _blobContainer.container.GetBlockBlobReference(fileName);
             return blob.DeleteIfExists();
         }
         public Stream Get(string fileName)
         {
             Stream file = new MemoryStream();
-            var container = new BlobContanier().Create();
-            var blob = container.GetBlockBlobReference(fileName);
+            var blob = _blobContainer.container.GetBlockBlobReference(fileName);
             blob.DownloadToStream(file);
             return file;
         }

@@ -68,6 +68,9 @@
     <Content Include="20160512_194750.mp4" />
     <Content Include="20160514_195832.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

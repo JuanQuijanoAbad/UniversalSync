@@ -10,8 +10,8 @@ namespace StorageAzure.Tests
     {
         public Boolean Exist(string fileName)
         {
-            var container = new BlobContanier().Create();
-            var blob = container.GetBlockBlobReference(fileName);
+            var blobContainer = new GetBlobContainer();
+            var blob = blobContainer.container.GetBlockBlobReference(fileName);
 
             return blob.Exists();
         }
@@ -19,7 +19,7 @@ namespace StorageAzure.Tests
         //[TestMethod()]
         public void BlobPut()
         {
-            var blob = new Blob();
+            var blob = new Blob(new GetBlobContainer());
             var objeto = File.OpenRead(@"..\..\20160514_195832.jpg");
             var fileName = Path.GetFileName(objeto.Name);
 
@@ -31,7 +31,7 @@ namespace StorageAzure.Tests
         //[TestMethod()]
         public void BlobPut_Fichero_de_55_Mb()
         {
-            var blob = new Blob();
+            var blob = new Blob(new GetBlobContainer());
             var objeto = File.OpenRead(@"..\..\20160512_194750.mp4");
             var fileName = Path.GetFileName(objeto.Name);
 
@@ -43,7 +43,7 @@ namespace StorageAzure.Tests
         //[TestMethod()]
         public void BlobGet()
         {
-            var blob = new Blob();
+            var blob = new Blob(new GetBlobContainer());
             var fileName = "20160514_195832.jpg";
 
             var fichero = blob.Get(fileName);
@@ -54,7 +54,7 @@ namespace StorageAzure.Tests
         //[TestMethod()]
         public void BlobDelete(string fichero)
         {
-            var blob = new Blob();
+            var blob = new Blob(new GetBlobContainer());
 
             blob.Delete(fichero);
 
@@ -64,7 +64,7 @@ namespace StorageAzure.Tests
         [TestMethod()]
         public void Operaciones_CRUD_en_el_Azure_Blob()
         {
-            var blob = new Blob();
+            var blob = new Blob(new GetBlobContainer());
             var imagen = "20160514_195832.jpg";
             var video = "20160512_194750.mp4";
 

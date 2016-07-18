@@ -12,7 +12,6 @@ namespace UniversalSync_Client_Console
         {
             CloudRepository = cloudRepository;
         }
-
         public bool PutAllFiles(List<string> filePaths)
         {
             var resultado = false;
