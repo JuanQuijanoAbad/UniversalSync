@@ -75,8 +75,9 @@
   <ItemGroup>
     <Compile Include="Blob.cs" />
     <Compile Include="BlobContanier.cs" />
-    <Compile Include="GetBlobContainer.cs" />
-    <Compile Include="ICloudRepository.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Interface\IAzureConfig.cs" />
+    <Compile Include="Interface\ICloudRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

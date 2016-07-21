@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="BlobContanierTests.cs" />
     <Compile Include="BlobTests.cs" />
-    <Compile Include="GetBlobContainer.cs" />
+    <Compile Include="ConfigurationToTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

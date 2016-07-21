@@ -9,9 +9,9 @@ namespace StorageAzure.Tests
         [TestMethod()]
         public void CreateContainer()
         {
-            var blobContainer = new GetBlobContainer();
+            var container = new BlobContanier(new ConfigurationToTest()).Create();
 
-            Assert.IsNotNull(blobContainer.container);
+            Assert.IsNotNull(container);
         }
     }
 }

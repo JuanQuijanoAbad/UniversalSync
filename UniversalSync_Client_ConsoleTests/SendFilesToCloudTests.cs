@@ -26,40 +26,23 @@ namespace UniversalSync_Client_Console.Tests
         public bool Delete(string fileName)
         {
             try
-            {
-                return true;
-            }
+            { return true; }
             catch (Exception)
-            {
-
-                return false;
-            }
+            { return false; }
         }
-
         public Stream Get(string fileName)
         {
             try
-            {
-                return new MemoryStream();
-            }
+            { return new MemoryStream(); }
             catch (Exception)
-            {
-
-                return null;
-            }
+            { return null; }
         }
-
         public bool Put(FileStream file)
         {
             try
-            {
-                return true;
-            }
+            { return true; }
             catch (Exception)
-            {
-
-                return false;
-            }
+            { return false; }
         }
     }
 }

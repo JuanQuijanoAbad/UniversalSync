@@ -9,11 +9,4 @@ namespace StorageAzure
         Stream Get(string fileName);
         bool Delete(string fileName);
     }
-
-    public interface IAzureBlobContainer
-    {
-        string StorageConnectionString { get; set; }
-        string ContainerReference { get; set; }
-        CloudBlobContainer container { get; set; }
-    }
 }

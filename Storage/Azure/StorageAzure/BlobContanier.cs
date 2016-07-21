@@ -1,19 +1,25 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using StorageAzure.Interface;
 
 namespace StorageAzure
 {
     public class BlobContanier
     {
-        IAzureBlobContainer _appConfig;
+        IAzureConfig _appConfig;
 
-        public BlobContanier(IAzureBlobContainer appConfig)
+        public BlobContanier(IAzureConfig appConfig)
         {
             _appConfig = appConfig;
         }
 
         public CloudBlobContainer Create()
         {
-            return _appConfig.container;
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_appConfig.StorageConnectionString);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference(_appConfig.ContainerReference);
+            container.CreateIfNotExists();
+            return container;
         }
     }
 }

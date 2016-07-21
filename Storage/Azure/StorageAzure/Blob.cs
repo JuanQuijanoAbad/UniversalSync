@@ -1,24 +1,27 @@
-﻿using System;
+﻿using Microsoft.Azure;
+using Microsoft.WindowsAzure.Storage.Blob;
+using StorageAzure.Interface;
+using System;
 using System.IO;
-using System.Text;
 
 namespace StorageAzure
 {
     public class Blob: ICloudRepository
     {
-        IAzureBlobContainer _blobContainer;
+        private CloudBlobContainer _blobContainer { get; }
 
-        public Blob(IAzureBlobContainer blobContainer)
+        public Blob(IAzureConfig config)
         {
-            _blobContainer = blobContainer;
-        }
+            _blobContainer = new BlobContanier(config).Create();
+        }            
+        
         public bool Put(FileStream objeto)
         {
             var resultado = false;
             try
             {
                 var fichero = Path.GetFileName(objeto.Name);
-                var blob = _blobContainer.container.GetBlockBlobReference(fichero);
+                var blob = _blobContainer.GetBlockBlobReference(fichero);
 
                 blob.UploadFromStream(objeto);
                 resultado = true;
@@ -32,13 +35,13 @@ namespace StorageAzure
         }
         public Boolean Delete(string fileName)
         {
-            var blob = _blobContainer.container.GetBlockBlobReference(fileName);
+            var blob = _blobContainer.GetBlockBlobReference(fileName);
             return blob.DeleteIfExists();
         }
         public Stream Get(string fileName)
         {
             Stream file = new MemoryStream();
-            var blob = _blobContainer.container.GetBlockBlobReference(fileName);
+            var blob = _blobContainer.GetBlockBlobReference(fileName);
             blob.DownloadToStream(file);
             return file;
         }
