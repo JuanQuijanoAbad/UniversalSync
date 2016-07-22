@@ -6,15 +6,15 @@ using System.IO;
 
 namespace StorageAzure
 {
-    public class Blob: ICloudRepository
+    public class Blob : ICloudRepository
     {
         private CloudBlobContainer _blobContainer { get; }
 
         public Blob(IAzureConfig config)
         {
             _blobContainer = new BlobContanier(config).Create();
-        }            
-        
+        }
+
         public bool Put(FileStream objeto)
         {
             var resultado = false;
@@ -28,7 +28,6 @@ namespace StorageAzure
             }
             catch (Exception)
             {
-
                 throw;
             }
             return resultado;
