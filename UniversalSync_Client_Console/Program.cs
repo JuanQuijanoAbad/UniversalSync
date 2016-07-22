@@ -12,7 +12,7 @@ namespace UniversalSync_Client_Console
             var repository = new Blob(new Configuration());
             var resultado = new SendFilesToCloud(repository).PutAllFiles(filesPaths);
 
-            Console.WriteLine("Pulsa una teclaaa");
+            Console.WriteLine("Pulsa una tecla");
             Console.ReadKey();
         }
     }
