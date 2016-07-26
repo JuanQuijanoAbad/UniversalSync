@@ -15,9 +15,14 @@ namespace UniversalSync_Client_Console.Tests
             var sendFilesToClouds = new SendFilesToCloud(new BlobMock());
             var listadoFicheros = new List<string> { @"..\..\20160514_195832.jpg", @"..\..\20160512_194750.mp4" };
 
-            var resultado = sendFilesToClouds.PutAllFiles(listadoFicheros);
-
-            Assert.IsTrue(resultado);
+            try
+            {
+                sendFilesToClouds.PutAllFiles(listadoFicheros);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
         }
     }
 
@@ -37,12 +42,12 @@ namespace UniversalSync_Client_Console.Tests
             catch (Exception)
             { return null; }
         }
-        public bool Put(FileStream file)
+        public Guid Put(FileStream file)
         {
             try
-            { return true; }
+            { return Guid.NewGuid(); }
             catch (Exception)
-            { return false; }
+            { return new Guid(); }
         }
     }
 }

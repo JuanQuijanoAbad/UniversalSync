@@ -10,7 +10,7 @@ namespace UniversalSync_Client_Console
         {
             var filesPaths = SelectFolder.RecursiveAndFiles();
             var repository = new Blob(new Configuration());
-            var resultado = new SendFilesToCloud(repository).PutAllFiles(filesPaths);
+            new SendFilesToCloud(repository).PutAllFiles(filesPaths);
 
             Console.WriteLine("Pulsa una tecla");
             Console.ReadKey();

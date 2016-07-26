@@ -1,4 +1,5 @@
 ﻿using StorageAzure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,22 +9,18 @@ namespace UniversalSync_Client_Console
     {
         private ICloudRepository CloudRepository;
 
-        public SendFilesToCloud (ICloudRepository cloudRepository)
+        public SendFilesToCloud(ICloudRepository cloudRepository)
         {
             CloudRepository = cloudRepository;
         }
-        public bool PutAllFiles(List<string> filePaths)
+        public void PutAllFiles(List<string> filePaths)
         {
-            var resultado = false;
-
             foreach (var filePath in filePaths)
             {
-                resultado = false;
                 var file = File.OpenRead(filePath);
-                resultado = CloudRepository.Put(file);
+                var id = CloudRepository.Put(file);
+                Console.WriteLine("Se ha subido el fichero " + Path.GetFileName(filePath) + " con el Id: " + id.ToString());
             }
-
-            return resultado;
         }
 
     }

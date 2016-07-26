@@ -14,64 +14,43 @@ namespace StorageAzure.Tests
 
             return blob.Exists();
         }
-
         //[TestMethod()]
+        public void BlobDelete(Guid id)
+        {
+            var blob = new Blob(new ConfigurationToTest());
+
+            blob.Delete(id.ToString());
+
+            Assert.IsFalse(Exist(id.ToString()));
+        }
+
+        [TestMethod()]
         public void BlobPut()
         {
             var blob = new Blob(new ConfigurationToTest());
             var objeto = File.OpenRead(@"..\..\20160514_195832.jpg");
-            var fileName = Path.GetFileName(objeto.Name);
 
-            blob.Put(objeto);
+            Guid id = blob.Put(objeto);
             objeto.Close();
 
-            Assert.IsTrue(Exist(fileName));
+            Assert.IsFalse(id == new Guid());
+            Assert.IsTrue(Exist(id.ToString()));
+
+            BlobDelete(id);
         }
-        //[TestMethod()]
+        [TestMethod()]
         public void BlobPut_Fichero_de_55_Mb()
         {
             var blob = new Blob(new ConfigurationToTest());
             var objeto = File.OpenRead(@"..\..\20160512_194750.mp4");
-            var fileName = Path.GetFileName(objeto.Name);
 
-            blob.Put(objeto);
+            Guid id = blob.Put(objeto);
             objeto.Close();
 
-            Assert.IsTrue(Exist(fileName));
-        }
-        //[TestMethod()]
-        public void BlobGet()
-        {
-            var blob = new Blob(new ConfigurationToTest());
-            var fileName = "20160514_195832.jpg";
+            Assert.IsFalse(id == new Guid());
+            Assert.IsTrue(Exist(id.ToString()));
 
-            var fichero = blob.Get(fileName);
-
-            Assert.IsNotNull(fichero);
-            Assert.IsTrue(fichero.Length > 0);
-        }
-        //[TestMethod()]
-        public void BlobDelete(string fichero)
-        {
-            var blob = new Blob(new ConfigurationToTest());
-
-            blob.Delete(fichero);
-
-            Assert.IsFalse(Exist(fichero));
-        }
-
-        [TestMethod()]
-        public void Operaciones_CRUD_en_el_Azure_Blob()
-        {
-            var blob = new Blob(new ConfigurationToTest());
-            var imagen = "20160514_195832.jpg";
-            var video = "20160512_194750.mp4";
-
-            BlobPut();
-            BlobGet();
-            BlobPut_Fichero_de_55_Mb();
-            blob.Delete(imagen);
-            blob.Delete(video);
+            BlobDelete(id);
         }
     }
 }
