@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>2.9</ProductVersion>
-    <ProjectGuid>87b858fe-160f-49b2-9776-08c2cfbeacdd</ProjectGuid>
+    <ProjectGuid>0386a801-a48d-4053-908e-d820a18a431c</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synchronizer</RootNamespace>
@@ -37,20 +37,20 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebRole1\WebRole1.csproj">
-      <Name>WebRole1</Name>
-      <Project>{576be670-7557-4a00-b8c7-ed914691ddcd}</Project>
+    <ProjectReference Include="..\SynchronizerWorker\SynchronizerWorker.csproj">
+      <Name>SynchronizerWorker</Name>
+      <Project>{d91cad5f-83be-438b-bc65-4b838ce23a9b}</Project>
       <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>WebRole1</RoleName>
+      <RoleType>Worker</RoleType>
+      <RoleName>SynchronizerWorker</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="WebRole1Content\" />
+    <Folder Include="SynchronizerWorkerContent\" />
   </ItemGroup>
   <ItemGroup>
-    <DiagnosticsConfiguration Include="WebRole1Content\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="SynchronizerWorkerContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalSync_Client_Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalSync_Client_ConsoleTests", "UniversalSync_Client_ConsoleTests\UniversalSync_Client_ConsoleTests.csproj", "{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Synchronizer", "Synchronizer\Synchronizer.ccproj", "{0386A801-A48D-4053-908E-D820A18A431C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronizerWorker", "SynchronizerWorker\SynchronizerWorker.csproj", "{D91CAD5F-83BE-438B-BC65-4B838CE23A9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,14 @@ Global
 		{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FE9B27B-BF75-4E41-BF19-4E5AC261F170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0386A801-A48D-4053-908E-D820A18A431C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0386A801-A48D-4053-908E-D820A18A431C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0386A801-A48D-4053-908E-D820A18A431C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0386A801-A48D-4053-908E-D820A18A431C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D91CAD5F-83BE-438B-BC65-4B838CE23A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D91CAD5F-83BE-438B-BC65-4B838CE23A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D91CAD5F-83BE-438B-BC65-4B838CE23A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D91CAD5F-83BE-438B-BC65-4B838CE23A9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +65,7 @@ Global
 		{45DB548D-FA3C-40AE-84F7-B5616E9C5E0E} = {91A5419D-44F4-44F9-B21B-79D69A610940}
 		{144A96DF-B973-4946-9C80-D7D58C72316E} = {45DB548D-FA3C-40AE-84F7-B5616E9C5E0E}
 		{68BF7FA9-79ED-444E-8157-0006A8098776} = {144A96DF-B973-4946-9C80-D7D58C72316E}
+		{0386A801-A48D-4053-908E-D820A18A431C} = {907ABAE8-BD68-4815-B1E2-C621FA7A63FC}
+		{D91CAD5F-83BE-438B-BC65-4B838CE23A9B} = {907ABAE8-BD68-4815-B1E2-C621FA7A63FC}
 	EndGlobalSection
 EndGlobal

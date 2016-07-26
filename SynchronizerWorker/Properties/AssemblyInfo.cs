@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Synchronizer.Tests")]
+[assembly: AssemblyTitle("SynchronizerWorker")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Synchronizer.Tests")]
+[assembly: AssemblyProduct("SynchronizerWorker")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("853a41c1-985f-4e1b-83f1-7bc4ad81ff30")]
+[assembly: Guid("d91cad5f-83be-438b-bc65-4b838ce23a9b")]
 
 // Version information for an assembly consists of the following four values:
 //
