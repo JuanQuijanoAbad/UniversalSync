@@ -42,12 +42,12 @@ namespace UniversalSync_Client_Console.Tests
             catch (Exception)
             { return null; }
         }
-        public Guid Put(FileStream file)
+        public string Put(FileStream file)
         {
             try
-            { return Guid.NewGuid(); }
+            { return Guid.NewGuid().ToString(); }
             catch (Exception)
-            { return new Guid(); }
+            { return new Guid().ToString(); }
         }
     }
 }

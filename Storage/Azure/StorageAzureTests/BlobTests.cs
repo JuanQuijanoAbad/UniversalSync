@@ -15,13 +15,13 @@ namespace StorageAzure.Tests
             return blob.Exists();
         }
         //[TestMethod()]
-        public void BlobDelete(Guid id)
+        public void BlobDelete(string guid)
         {
             var blob = new Blob(new ConfigurationToTest());
 
-            blob.Delete(id.ToString());
+            blob.Delete(guid);
 
-            Assert.IsFalse(Exist(id.ToString()));
+            Assert.IsFalse(Exist(guid));
         }
 
         [TestMethod()]
@@ -30,10 +30,10 @@ namespace StorageAzure.Tests
             var blob = new Blob(new ConfigurationToTest());
             var objeto = File.OpenRead(@"..\..\20160514_195832.jpg");
 
-            Guid id = blob.Put(objeto);
+            string id = blob.Put(objeto);
             objeto.Close();
 
-            Assert.IsFalse(id == new Guid());
+            Assert.IsFalse(id == new Guid().ToString());
             Assert.IsTrue(Exist(id.ToString()));
 
             BlobDelete(id);
@@ -44,10 +44,10 @@ namespace StorageAzure.Tests
             var blob = new Blob(new ConfigurationToTest());
             var objeto = File.OpenRead(@"..\..\20160512_194750.mp4");
 
-            Guid id = blob.Put(objeto);
+            string id = blob.Put(objeto);
             objeto.Close();
 
-            Assert.IsFalse(id == new Guid());
+            Assert.IsFalse(id == new Guid().ToString());
             Assert.IsTrue(Exist(id.ToString()));
 
             BlobDelete(id);

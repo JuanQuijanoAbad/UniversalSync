@@ -73,12 +73,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Table.cs" />
     <Compile Include="Blob.cs" />
     <Compile Include="BlobContanier.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="Configurations.cs" />
     <Compile Include="Interface\IAzureConfig.cs" />
     <Compile Include="Interface\ICloudRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

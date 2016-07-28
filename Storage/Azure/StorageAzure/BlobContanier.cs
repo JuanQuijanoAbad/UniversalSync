@@ -17,7 +17,7 @@ namespace StorageAzure
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_appConfig.StorageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference(_appConfig.ContainerReference);
+            var container = blobClient.GetContainerReference(_appConfig.Reference);
             container.CreateIfNotExists();
             return container;
         }

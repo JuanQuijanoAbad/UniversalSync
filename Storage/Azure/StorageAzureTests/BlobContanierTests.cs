@@ -7,7 +7,7 @@ namespace StorageAzure.Tests
     public class BlobContanierTests
     {
         [TestMethod()]
-        public void CreateContainer()
+        public void CreateBlobContainer()
         {
             var container = new BlobContanier(new ConfigurationToTest()).Create();
 

@@ -3,6 +3,6 @@
     public interface IAzureConfig
     {
         string StorageConnectionString { get; set; }
-        string ContainerReference { get; set; }
+        string Reference { get; set; }
     }
 }
