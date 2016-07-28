@@ -73,8 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileEntity.cs" />
-    <Compile Include="AlbumEntity.cs" />
+    <Compile Include="Entity\FileEntity.cs" />
+    <Compile Include="Entity\AlbumEntity.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Blob.cs" />
     <Compile Include="BlobContanier.cs" />
