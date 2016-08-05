@@ -1,6 +1,4 @@
-﻿using Microsoft.Azure;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Table;
+﻿using Microsoft.WindowsAzure.Storage.Table;
 using StorageAzure.Interface;
 using System;
 using System.IO;
