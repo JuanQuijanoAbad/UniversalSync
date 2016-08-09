@@ -25,12 +25,19 @@ namespace StorageAzure
             var resultado = _tableContainer.Execute(deleteOperation);
             return resultado.HttpStatusCode.ToString();
         }
-        public TableEntity Get(TableEntity entity)
+        public TableEntity GetFile(TableEntity entity)
         {
-           //IEnumerable<FileEntity> query = (from item in _tableContainer.CreateQuery<FileEntity>()
-           //                 select item).Take(1);
+            TableOperation GetOperation = TableOperation.Retrieve<FileEntity>(entity.PartitionKey, entity.RowKey);
+            var resultado = _tableContainer.Execute(GetOperation);
+            return (FileEntity)resultado.Result;
 
-            return null;
+        }
+        public TableEntity GetAlbum(TableEntity entity)
+        {
+            TableOperation GetOperation = TableOperation.Retrieve<AlbumEntity>(entity.PartitionKey, entity.RowKey);
+            var resultado = _tableContainer.Execute(GetOperation);
+            return (AlbumEntity)resultado.Result;
+
         }
     }
 }

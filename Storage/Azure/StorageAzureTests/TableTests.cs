@@ -19,7 +19,7 @@ namespace StorageAzure.Tests
 
             return tabla;
         }
-        public FileEntity EntidadDePruebas()
+        public FileEntity FileEntityDePruebas()
         {
             FileEntity entidad = new FileEntity();
             entidad.RowKey = "67deda39-a5d3-4620-bb56-1c8b7edcf510";
@@ -31,37 +31,51 @@ namespace StorageAzure.Tests
 
             return entidad;
         }
+        public AlbumEntity AlbumEntityDePruebas()
+        {
+            AlbumEntity entidad = new AlbumEntity();
+            entidad.RowKey = "67deda39-a5d3-4620-bb56-1c8b7edcf510";
+            entidad.Comment = "Si lo estás viendo, borralo";
+            entidad.Description = "Fichero de prueba";
+            entidad.Name = "prueba_borrame";
+            entidad.ETag = "*";
+            entidad.Title = "Borrame";
+
+            return entidad;
+        }
 
         [TestMethod()]
-        public void Put_file_entity()
+        public void Crud_file_entity()
         {
             var tabla = TablaDePruebas();
+            var entidad = FileEntityDePruebas();
 
-            var resultado = tabla.Put(EntidadDePruebas());
-
+            var resultado = tabla.Put(entidad);
             Assert.AreEqual("204", resultado, "Respuesta: " + resultado);
+
+            var resultadoGet = tabla.GetFile(entidad);
+            Assert.AreEqual(entidad.RowKey, resultadoGet.RowKey);
+
+            var resultadoDelete = tabla.Delete(entidad);
+            Assert.AreEqual("204", resultadoDelete, "Respuesta: " + resultadoDelete);
         }
 
         [TestMethod()]
-        public void Delete_file_entity()
+        public void Crud_Album_entity()
         {
             var tabla = TablaDePruebas();
+            var entidad = AlbumEntityDePruebas();
 
-            var resultado = tabla.Delete(EntidadDePruebas());
-
+            var resultado = tabla.Put(entidad);
             Assert.AreEqual("204", resultado, "Respuesta: " + resultado);
+
+            var resultadoGet = tabla.GetAlbum(entidad);
+            Assert.AreEqual(entidad.RowKey, resultadoGet.RowKey);
+
+            var resultadoDelete = tabla.Delete(entidad);
+            Assert.AreEqual("204", resultadoDelete, "Respuesta: " + resultadoDelete);
         }
 
-        [TestMethod()]
-        public void Get_file_entity()
-        {
-            var tabla = TablaDePruebas();
-            var entidad = EntidadDePruebas();
-
-            var resultado = tabla.Get(entidad);
-
-            Assert.AreEqual(entidad.RowKey, resultado.RowKey);
-        }
 
 
         [TestMethod()]

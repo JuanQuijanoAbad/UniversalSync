@@ -25,7 +25,7 @@ namespace StorageAzure.Tests
         }
 
         [TestMethod()]
-        public void BlobPut()
+        public void Al_hacer_Put_se_le_asigna_un_GUID_como_nombre()
         {
             var blob = new Blob(new ConfigurationToTest());
             var objeto = File.OpenRead(@"..\..\20160514_195832.jpg");
@@ -38,7 +38,8 @@ namespace StorageAzure.Tests
 
             BlobDelete(id);
         }
-        [TestMethod()]
+        // Test de desarrollo para comprobar si traga vídeos de 50 Mb.
+        //[TestMethod()]
         public void BlobPut_Fichero_de_55_Mb()
         {
             var blob = new Blob(new ConfigurationToTest());
@@ -51,6 +52,23 @@ namespace StorageAzure.Tests
             Assert.IsTrue(Exist(id.ToString()));
 
             BlobDelete(id);
+        }
+
+        //[TestMethod()]
+        public void BlobPut_Fichero_de_200_Mb()
+        {
+            //var blob = new Blob(new ConfigurationToTest());
+            //var objeto = File.OpenRead(@"..\..\20160512_194750.mp4");
+
+            //string id = blob.Put(objeto);
+            //objeto.Close();
+
+            //Assert.IsFalse(id == new Guid().ToString());
+            //Assert.IsTrue(Exist(id.ToString()));
+
+            //BlobDelete(id);
+
+            Assert.Inconclusive("Aún no está implementado");
         }
     }
 }
