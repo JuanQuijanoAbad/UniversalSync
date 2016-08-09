@@ -1,11 +1,10 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 using StorageAzure.Interface;
-using System;
-using System.IO;
+using System.Collections.Generic;
 
 namespace StorageAzure
 {
-    public class Table : ICloudRepository
+    public class Table
     {
         private CloudTable _tableContainer { get; }
 
@@ -14,27 +13,24 @@ namespace StorageAzure
             _tableContainer = new TableContainer(config).Create();
         }
 
-        public string Put(FileStream objeto)
+        public string Put(TableEntity entity)
         {
-            var fichero = string.Empty;
-            //var blob = _blobContainer.GetBlockBlobReference(fichero.ToString());
-
-            //blob.UploadFromStream(objeto);
-
-            return fichero;
+            TableOperation insertOperation = TableOperation.InsertOrReplace(entity);
+            var resultado = _tableContainer.Execute(insertOperation);
+            return resultado.HttpStatusCode.ToString();
         }
-        public Boolean Delete(string fileName)
+        public string Delete(TableEntity entity)
         {
-            //var blob = _blobContainer.GetBlockBlobReference(fileName);
-            //return blob.DeleteIfExists();
-            return false;
+            TableOperation deleteOperation = TableOperation.Delete(entity);
+            var resultado = _tableContainer.Execute(deleteOperation);
+            return resultado.HttpStatusCode.ToString();
         }
-        public Stream Get(string fileName)
+        public TableEntity Get(TableEntity entity)
         {
-            Stream file = new MemoryStream();
-            //var blob = _blobContainer.GetBlockBlobReference(fileName);
-            //blob.DownloadToStream(file);
-            return file;
+           //IEnumerable<FileEntity> query = (from item in _tableContainer.CreateQuery<FileEntity>()
+           //                 select item).Take(1);
+
+            return null;
         }
     }
 }

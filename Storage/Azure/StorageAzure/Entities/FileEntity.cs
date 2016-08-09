@@ -14,15 +14,21 @@ namespace StorageAzure
         public string Tags { get; set; }
         public string Geoposition { get; set; }
 
-        public FileEntity(string partitionKey)
+        public FileEntity()
         {
-            if (string.IsNullOrWhiteSpace(partitionKey))
-            { PartitionKey = new Guid().ToString(); }
-            else
-            { PartitionKey = partitionKey; }
-            
+            PartitionKey = new Guid().ToString();
             RowKey = Guid.NewGuid().ToString();
             Timestamp = DateTimeOffset.UtcNow;
-        }       
+        }
+        public FileEntity(string AlbumGuiPartitionKey)
+        {
+            if (string.IsNullOrWhiteSpace(AlbumGuiPartitionKey))
+            { PartitionKey = new Guid().ToString(); }
+            else
+            { PartitionKey = AlbumGuiPartitionKey; }
+
+            RowKey = Guid.NewGuid().ToString();
+            Timestamp = DateTimeOffset.UtcNow;
+        }
     }
 }
