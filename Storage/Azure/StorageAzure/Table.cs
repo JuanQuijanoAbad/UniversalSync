@@ -1,6 +1,8 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 using StorageAzure.Interface;
+using System.Linq;
 using System.Collections.Generic;
+using System.Data.Services.Client;
 
 namespace StorageAzure
 {
@@ -25,19 +27,29 @@ namespace StorageAzure
             var resultado = _tableContainer.Execute(deleteOperation);
             return resultado.HttpStatusCode.ToString();
         }
-        public TableEntity GetFile(TableEntity entity)
+        public TableEntity GetFile(TableEntity fileEntity)
         {
-            TableOperation GetOperation = TableOperation.Retrieve<FileEntity>(entity.PartitionKey, entity.RowKey);
-            var resultado = _tableContainer.Execute(GetOperation);
-            return (FileEntity)resultado.Result;
-
+            var query = (from file in _tableContainer.CreateQuery<AlbumEntity>()
+                         where file.PartitionKey == fileEntity.PartitionKey
+                         && file.RowKey == fileEntity.RowKey
+                         select file).FirstOrDefault();
+            return query;
         }
-        public TableEntity GetAlbum(TableEntity entity)
+        public TableEntity GetAlbum(TableEntity albumEntity)
         {
-            TableOperation GetOperation = TableOperation.Retrieve<AlbumEntity>(entity.PartitionKey, entity.RowKey);
-            var resultado = _tableContainer.Execute(GetOperation);
-            return (AlbumEntity)resultado.Result;
+            var query = (from album in _tableContainer.CreateQuery<AlbumEntity>()
+                         where album.PartitionKey == albumEntity.PartitionKey
+                         && album.RowKey == albumEntity.RowKey
+                         select album).FirstOrDefault();
+            return query;
+        }
+        public TableEntity GetAlbumByPartitionKey(TableEntity albumEntity)
+        {
+            var query = (from album in _tableContainer.CreateQuery<AlbumEntity>()
+                         where album.PartitionKey == albumEntity.PartitionKey
+                         select album).FirstOrDefault();
 
+            return query;
         }
     }
 }

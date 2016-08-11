@@ -1,20 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.WindowsAzure.Storage.Table;
-using StorageAzure;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageAzure.Tests
 {
     [TestClass()]
     public class TableTests
     {
-        public Table TablaDePruebas()
+        public Table TablaDePruebas(string tableName)
         {
-            var config = new ConfigurationTable("Files");
+            var config = new ConfigurationTable(tableName);
             var tabla = new Table(config);
 
             return tabla;
@@ -34,6 +28,7 @@ namespace StorageAzure.Tests
         public AlbumEntity AlbumEntityDePruebas()
         {
             AlbumEntity entidad = new AlbumEntity();
+            entidad.PartitionKey = "Borrame";
             entidad.RowKey = "67deda39-a5d3-4620-bb56-1c8b7edcf510";
             entidad.Comment = "Si lo estás viendo, borralo";
             entidad.Description = "Fichero de prueba";
@@ -47,7 +42,7 @@ namespace StorageAzure.Tests
         [TestMethod()]
         public void Crud_file_entity()
         {
-            var tabla = TablaDePruebas();
+            var tabla = TablaDePruebas("Files");
             var entidad = FileEntityDePruebas();
 
             var resultado = tabla.Put(entidad);
@@ -63,7 +58,7 @@ namespace StorageAzure.Tests
         [TestMethod()]
         public void Crud_Album_entity()
         {
-            var tabla = TablaDePruebas();
+            var tabla = TablaDePruebas("Albums");
             var entidad = AlbumEntityDePruebas();
 
             var resultado = tabla.Put(entidad);
@@ -72,11 +67,12 @@ namespace StorageAzure.Tests
             var resultadoGet = tabla.GetAlbum(entidad);
             Assert.AreEqual(entidad.RowKey, resultadoGet.RowKey);
 
+            var resultadoGetByPartition = tabla.GetAlbumByPartitionKey(entidad);
+            Assert.AreEqual(entidad.PartitionKey, resultadoGetByPartition.PartitionKey);
+
             var resultadoDelete = tabla.Delete(entidad);
             Assert.AreEqual("204", resultadoDelete, "Respuesta: " + resultadoDelete);
         }
-
-
 
         [TestMethod()]
         public void Put_mantiene_la_fecha_del_primer_upload()
