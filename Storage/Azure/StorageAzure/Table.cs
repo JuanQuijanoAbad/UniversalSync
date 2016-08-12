@@ -1,11 +1,12 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 using StorageAzure.Interface;
-using System;
-using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data.Services.Client;
 
 namespace StorageAzure
 {
-    public class Table : ICloudRepository
+    public class Table
     {
         private CloudTable _tableContainer { get; }
 
@@ -14,27 +15,41 @@ namespace StorageAzure
             _tableContainer = new TableContainer(config).Create();
         }
 
-        public string Put(FileStream objeto)
+        public string Put(TableEntity entity)
         {
-            var fichero = string.Empty;
-            //var blob = _blobContainer.GetBlockBlobReference(fichero.ToString());
-
-            //blob.UploadFromStream(objeto);
-
-            return fichero;
+            TableOperation insertOperation = TableOperation.InsertOrReplace(entity);
+            var resultado = _tableContainer.Execute(insertOperation);
+            return resultado.HttpStatusCode.ToString();
         }
-        public Boolean Delete(string fileName)
+        public string Delete(TableEntity entity)
         {
-            //var blob = _blobContainer.GetBlockBlobReference(fileName);
-            //return blob.DeleteIfExists();
-            return false;
+            TableOperation deleteOperation = TableOperation.Delete(entity);
+            var resultado = _tableContainer.Execute(deleteOperation);
+            return resultado.HttpStatusCode.ToString();
         }
-        public Stream Get(string fileName)
+        public TableEntity GetFile(TableEntity fileEntity)
         {
-            Stream file = new MemoryStream();
-            //var blob = _blobContainer.GetBlockBlobReference(fileName);
-            //blob.DownloadToStream(file);
-            return file;
+            var query = (from file in _tableContainer.CreateQuery<AlbumEntity>()
+                         where file.PartitionKey == fileEntity.PartitionKey
+                         && file.RowKey == fileEntity.RowKey
+                         select file).FirstOrDefault();
+            return query;
+        }
+        public TableEntity GetAlbum(TableEntity albumEntity)
+        {
+            var query = (from album in _tableContainer.CreateQuery<AlbumEntity>()
+                         where album.PartitionKey == albumEntity.PartitionKey
+                         && album.RowKey == albumEntity.RowKey
+                         select album).FirstOrDefault();
+            return query;
+        }
+        public TableEntity GetAlbumByPartitionKey(TableEntity albumEntity)
+        {
+            var query = (from album in _tableContainer.CreateQuery<AlbumEntity>()
+                         where album.PartitionKey == albumEntity.PartitionKey
+                         select album).FirstOrDefault();
+
+            return query;
         }
     }
 }

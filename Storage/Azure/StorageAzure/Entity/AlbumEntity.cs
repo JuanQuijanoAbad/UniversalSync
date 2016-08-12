@@ -9,12 +9,5 @@ namespace StorageAzure
         public string Title { get; set; }
         public string Description { get; set; }
         public string Comment { get; set; }
-
-        public AlbumEntity()
-        {
-            PartitionKey = "ALBUM";
-            RowKey = Guid.NewGuid().ToString();
-            Timestamp = DateTime.UtcNow;
-        }       
     }
 }
