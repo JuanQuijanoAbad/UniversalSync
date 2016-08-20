@@ -17,12 +17,12 @@ namespace StorageAzure
 
         public string Put(FileStream objeto)
         {
-            var fichero = Guid.NewGuid();
-            var blob = _blobContainer.GetBlockBlobReference(fichero.ToString());
+            var fileId = Guid.NewGuid();
+            var blob = _blobContainer.GetBlockBlobReference(fileId.ToString());
 
             blob.UploadFromStream(objeto);
 
-            return fichero.ToString();
+            return fileId.ToString();
         }
         public Boolean Delete(string fileName)
         {

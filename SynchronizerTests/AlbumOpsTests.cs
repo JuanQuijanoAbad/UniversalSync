@@ -2,7 +2,7 @@
 using StorageAzure.Tests;
 using Synchronizer;
 
-namespace hronizer.Tests
+namespace Synchronizer.Tests
 {
     [TestClass()]
     public class AlbumOpsTests
@@ -47,6 +47,17 @@ namespace hronizer.Tests
 
             Assert.AreEqual("SynchronizerTests", resultado, "Ha devuelto: " + resultado + " como nombre de Album");
         }
+        [TestMethod()]
+        public void GetAlbumName_without_root()
+        {
+            var path = @"..\\..\\20160514_195832.jpg";
+            var albumOps = new AlbumOps(path);
+
+            var resultado = albumOps.GetAlbumName();
+
+            Assert.AreEqual("SynchronizerTests", resultado, "Ha devuelto: " + resultado + " como nombre de Album");
+        }
+
 
         [TestMethod()]
         public void Exist_is_false()
@@ -56,12 +67,12 @@ namespace hronizer.Tests
 
             var resultado = albumOps.Exist();
 
-            Assert.AreEqual(false, resultado);
+            Assert.IsNull(resultado.RowKey);
         }
         [TestMethod()]
         public void Exist_is_true()
         {
-            var path = @"..\\borrame\\20160514_195832.jpg";
+            var path = @"..\\Borrame\\20160514_195832.jpg";
             var albumOps = new AlbumOps(path);
             var tableOps = new TableTests();
             var tabla = tableOps.TablaDePruebas("Albums");
@@ -71,7 +82,7 @@ namespace hronizer.Tests
             var resultado = albumOps.Exist();
             tabla.Delete(entidad);
 
-            Assert.AreEqual(false, resultado);
+            Assert.AreEqual(entidad.RowKey, resultado.RowKey);
         }
     }
 }
