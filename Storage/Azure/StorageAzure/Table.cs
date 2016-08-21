@@ -27,6 +27,7 @@ namespace StorageAzure
             var resultado = _tableContainer.Execute(deleteOperation);
             return resultado.HttpStatusCode.ToString();
         }
+
         public TableEntity GetFile(TableEntity fileEntity)
         {
             var query = (from file in _tableContainer.CreateQuery<AlbumEntity>()
@@ -35,6 +36,22 @@ namespace StorageAzure
                          select file).FirstOrDefault();
             return query;
         }
+        public IQueryable<FileEntity> GetFileListByFileName(FileEntity fileEntity)
+        {
+            var query = (from file in _tableContainer.CreateQuery<FileEntity>()
+                         where file.FileName == fileEntity.FileName
+                         select file);
+            return query;
+        }
+        public IQueryable<FileEntity> GetFileListByAlbumAndFileName(FileEntity fileEntity)
+        {
+            var query = (from file in _tableContainer.CreateQuery<FileEntity>()
+                         where file.PartitionKey == fileEntity.PartitionKey 
+                         && file.FileName == fileEntity.FileName
+                         select file);
+            return query;
+        }
+
         public TableEntity GetAlbum(TableEntity albumEntity)
         {
             var query = (from album in _tableContainer.CreateQuery<AlbumEntity>()

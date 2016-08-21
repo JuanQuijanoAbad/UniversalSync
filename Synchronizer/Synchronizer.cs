@@ -8,14 +8,13 @@ namespace Synchronizer
 {
     public class Synchronizer
     {
+
         public string Put(string path, FileStream file)
         {
             var resultado = string.Empty;
             /// comprueba si es nuevo album
             // recupera el nombre del album
             // busca el nombre del album en tabla Albums
-            // si existe, recupera el GUID
-
             // si no existe, da de alta el nuevo album
             // recupera el GUID
 
@@ -26,24 +25,43 @@ namespace Synchronizer
             { resultado = albumOps.CreateAlbum(); }
 
             /// guarda fichero en el blob
+            /// Voy a hacerlo con duplicar siempre, despues tengo que añadir el reemplazar que es el verdadero sincronizar
             var blobId = new BlobOps().Put(file);
 
+            /// nueva entrada en Table File con el GUID del album y el GUID del blob en la propiedad url
             var fileOps = new FileOps(albumOps.AlbumEntity.RowKey, path, blobId);
             resultado = fileOps.CreateFile();
 
-            /// nueva entrada en Table File con el GUID del album
-            /// Voy a hacerlo con duplicar siempre, despues tengo que añadir el reemplazar que es el verdadero sincronizar
-
-   
-
-
-
-
             return resultado;
         }
+
+
         public void Get() { }
         public void GetAll() { }
         public void Delete() { }
+        public string DeleteFile(string path)
+        {
+            var resultado = "404";
+            var albumOps = new AlbumOps(path);
+
+            albumOps.Exist();
+
+            var albumGid = albumOps.AlbumEntity.RowKey;
+            var blobId = string.Empty;
+
+            var blobOps = new BlobOps();
+
+            var fileOps = new FileOps(albumGid, path, blobId);
+            var files = fileOps.GetFileListByFileName();
+
+            foreach (var item in files)
+            {
+                blobOps.Delete(item.url);
+                resultado = fileOps.Delete(item);
+            }
+
+            return resultado;
+        }
     }
 
 
@@ -93,9 +111,12 @@ namespace Synchronizer
     public class FileOps
     {
         public FileEntity fileEntity { get; set; }
+        private Table fileTable { get; set; }
+
 
         public FileOps(string albumGuid, string path, string blobId)
         {
+            fileTable = new Table(new ConfigurationTable("Files"));
             fileEntity = new FileEntity(albumGuid);
             fileEntity.url = blobId;
             fileEntity.PhysicalPath = Path.GetFullPath(path);
@@ -106,12 +127,23 @@ namespace Synchronizer
         public string CreateFile()
         {
             var resultado = string.Empty;
-            var FileTable = new Table(new ConfigurationTable("Files"));
-            resultado = FileTable.Put(fileEntity);
+            var fileTable = new Table(new ConfigurationTable("Files"));
+            resultado = fileTable.Put(fileEntity);
 
             return resultado;
         }
+        public IQueryable<FileEntity> GetFileListByFileName()
+        {
+            var fileList = fileTable.GetFileListByFileName(fileEntity);
+            return fileList;
+        }
+        public string Delete(FileEntity entity)
+        {
+            string resultado = string.Empty;
+            resultado = fileTable.Delete(entity);
 
+            return resultado;
+        }
     }
     public class BlobOps
     {
@@ -124,6 +156,15 @@ namespace Synchronizer
             file.Close();
 
             return blobId;
+        }
+        public bool Delete(string fileGuid)
+        {
+            var resultado = false;
+
+            var blob = new Blob(new ConfigurationBlob());
+            resultado = blob.Delete(fileGuid);
+
+            return resultado;
         }
 
     }
