@@ -6,7 +6,7 @@ namespace StorageAzure.Tests
     [TestClass()]
     public class TableContainerTests
     {
-        [TestMethod()]
+
         public void Create_Table_Albums_if_not_exist()
         {
             try
@@ -21,7 +21,7 @@ namespace StorageAzure.Tests
             { Assert.Fail(ex.Message); }
         }
 
-        [TestMethod()]
+
         public void Create_Table_Files_if_not_exist()
         {
             try

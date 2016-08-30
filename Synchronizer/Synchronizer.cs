@@ -12,33 +12,26 @@ namespace Synchronizer
         public string Put(string path, FileStream file)
         {
             var resultado = string.Empty;
-            /// comprueba si es nuevo album
-            // recupera el nombre del album
-            // busca el nombre del album en tabla Albums
-            // si no existe, da de alta el nuevo album
-            // recupera el GUID
 
             var albumOps = new AlbumOps(path);
+            if (!albumOps.Exist())
+            { resultado = albumOps.CreateAlbum(path); }
+            var albumId = albumOps.AlbumEntity.RowKey;
 
-            albumOps.Exist();
-            if (albumOps.AlbumEntity.RowKey == null)
-            { resultado = albumOps.CreateAlbum(); }
-
-            /// guarda fichero en el blob
             /// Voy a hacerlo con duplicar siempre, despues tengo que añadir el reemplazar que es el verdadero sincronizar
-            var blobId = new BlobOps().Put(file);
+            var repository = new Blob(new ConfigurationBlob());
+            var blobId = new BlobOps(repository).Put(file);
 
-            /// nueva entrada en Table File con el GUID del album y el GUID del blob en la propiedad url
-            var fileOps = new FileOps(albumOps.AlbumEntity.RowKey, path, blobId);
+            var fileOps = new FileOps(albumId, path, blobId);
             resultado = fileOps.CreateFile();
 
             return resultado;
         }
-
-
-        public void Get() { }
-        public void GetAll() { }
-        public void Delete() { }
+        public string DeleteAlbum(string path)
+        {
+            var albumOps = new AlbumOps(path);
+            return albumOps.Delete();
+        }
         public string DeleteFile(string path)
         {
             var resultado = "404";
@@ -49,10 +42,11 @@ namespace Synchronizer
             var albumGid = albumOps.AlbumEntity.RowKey;
             var blobId = string.Empty;
 
-            var blobOps = new BlobOps();
-
             var fileOps = new FileOps(albumGid, path, blobId);
             var files = fileOps.GetFileListByFileName();
+
+            var repository = new Blob(new ConfigurationBlob());
+            var blobOps = new BlobOps(repository);
 
             foreach (var item in files)
             {
@@ -67,43 +61,46 @@ namespace Synchronizer
 
     public class AlbumOps
     {
+        private Table AlbumTable;
         public AlbumEntity AlbumEntity { get; set; }
-        private string _path { get; set; }
+
 
         public AlbumOps(string path)
         {
+            AlbumTable = new Table(new ConfigurationTable("Albums"));
             AlbumEntity = new AlbumEntity();
-            _path = path;
-            AlbumEntity.PartitionKey = GetAlbumName();
+            AlbumEntity.PartitionKey = GetAlbumName(path);
         }
 
-        public AlbumEntity Exist()
+        public bool Exist()
         {
-            var albumresultado = new AlbumEntity();
-            var AlbumTable = new Table(new ConfigurationTable("Albums"));
             var album = AlbumTable.GetAlbumByPartitionKey(AlbumEntity);
-
             if (album != null)
-            {
-                AlbumEntity = (AlbumEntity)album;
-            }
+            { AlbumEntity = (AlbumEntity)album; }
 
-            return AlbumEntity;
+            return album != null; ;
         }
-        public string GetAlbumName()
+        public string GetAlbumName(string path)
         {
-            string fullPath = Path.GetFullPath(_path);
+            string fullPath = Path.GetFullPath(path);
             string pathWithoutFile = Path.GetDirectoryName(fullPath).TrimEnd(Path.DirectorySeparatorChar);
             string albumName = pathWithoutFile.Split(Path.DirectorySeparatorChar).Last();
 
             return albumName;
         }
-        public string CreateAlbum()
+        public string CreateAlbum(string path)
         {
             var resultado = String.Empty;
-            var album = new AlbumEntity(GetAlbumName());
-            var AlbumTable = new Table(new ConfigurationTable("Albums"));
-            resultado = AlbumTable.Put(album);
+            AlbumEntity = new AlbumEntity(GetAlbumName(path));
+            resultado = AlbumTable.Put(AlbumEntity);
+
+            return resultado;
+        }
+        public string Delete()
+        {
+            var resultado = "400";
+            if (Exist())
+            { resultado = AlbumTable.Delete(AlbumEntity); }
 
             return resultado;
         }
@@ -147,12 +144,17 @@ namespace Synchronizer
     }
     public class BlobOps
     {
+        private ICloudRepository CloudRepository;
+
+        public BlobOps(ICloudRepository cloudRepository)
+        {
+            CloudRepository = cloudRepository;
+        }
+
         public string Put(FileStream file)
         {
             var blobId = string.Empty;
-
-            var blob = new Blob(new ConfigurationBlob());
-            blobId = blob.Put(file);
+            blobId = CloudRepository.Put(file);
             file.Close();
 
             return blobId;
@@ -161,8 +163,7 @@ namespace Synchronizer
         {
             var resultado = false;
 
-            var blob = new Blob(new ConfigurationBlob());
-            resultado = blob.Delete(fileGuid);
+            resultado = CloudRepository.Delete(fileGuid);
 
             return resultado;
         }

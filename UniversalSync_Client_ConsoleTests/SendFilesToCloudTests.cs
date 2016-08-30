@@ -9,21 +9,21 @@ namespace UniversalSync_Client_Console.Tests
     [TestClass()]
     public class SendFilesToCloudTests
     {
-        [TestMethod()]
-        public void PutAllFilesTest()
-        {
-            var sendFilesToClouds = new SendFilesToCloud(new BlobMock());
-            var listadoFicheros = new List<string> { @"..\..\20160514_195832.jpg", @"..\..\20160512_194750.mp4" };
+        //    [TestMethod()]
+        //    public void PutAllFilesTest()
+        //    {
+        //        var sendFilesToClouds = new SendFilesToCloud(new BlobMock());
+        //        var listadoFicheros = new List<string> { @"..\..\20160514_195832.jpg", @"..\..\20160512_194750.mp4" };
 
-            try
-            {
-                sendFilesToClouds.PutAllFiles(listadoFicheros);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
-        }
+        //        try
+        //        {
+        //            sendFilesToClouds.PutAllFiles(listadoFicheros);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Assert.Fail(ex.Message);
+        //        }
+        //    }
     }
 
     public class BlobMock : ICloudRepository

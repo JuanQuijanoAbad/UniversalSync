@@ -83,6 +83,10 @@
       <Project>{e1d20640-7a0f-4534-99dd-8f00ba51feef}</Project>
       <Name>CloudStorage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synchronizer\Synchronizer.csproj">
+      <Project>{1CF89775-F409-4F4C-804C-A084BCB33FA5}</Project>
+      <Name>Synchronizer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,7 +13,7 @@ namespace Synchronizer.Tests
             var path = @"C:\Users\juan.c.quijano.abad\Source\Repos\UniversalSync\SynchronizerTests\20160514_195832.jpg";
             var albumOps = new AlbumOps(path);
 
-            var resultado = albumOps.GetAlbumName();
+            var resultado = albumOps.GetAlbumName(path);
 
             Assert.AreEqual("SynchronizerTests", resultado, "Ha devuelto: " + resultado + " como nombre de Album");
         }
@@ -23,7 +23,7 @@ namespace Synchronizer.Tests
             var path = @"..\..\20160514_195832.jpg";
             var albumOps = new AlbumOps(path);
 
-            var resultado = albumOps.GetAlbumName();
+            var resultado = albumOps.GetAlbumName(path);
 
             Assert.AreEqual("SynchronizerTests", resultado, "Ha devuelto: " + resultado + " como nombre de Album");
         }
@@ -33,7 +33,7 @@ namespace Synchronizer.Tests
             var path = @"C:\Users\juan.c.quijano.abad\Source\Repos\UniversalSync\SynchronizerTests\";
             var albumOps = new AlbumOps(path);
 
-            var resultado = albumOps.GetAlbumName();
+            var resultado = albumOps.GetAlbumName(path);
 
             Assert.AreEqual("SynchronizerTests", resultado, "Ha devuelto: " + resultado + " como nombre de Album");
         }
@@ -43,7 +43,7 @@ namespace Synchronizer.Tests
             var path = @"..\\..\\20160514_195832.jpg";
             var albumOps = new AlbumOps(path);
 
-            var resultado = albumOps.GetAlbumName();
+            var resultado = albumOps.GetAlbumName(path);
 
             Assert.AreEqual("SynchronizerTests", resultado, "Ha devuelto: " + resultado + " como nombre de Album");
         }
@@ -53,7 +53,7 @@ namespace Synchronizer.Tests
             var path = @"..\\..\\20160514_195832.jpg";
             var albumOps = new AlbumOps(path);
 
-            var resultado = albumOps.GetAlbumName();
+            var resultado = albumOps.GetAlbumName(path);
 
             Assert.AreEqual("SynchronizerTests", resultado, "Ha devuelto: " + resultado + " como nombre de Album");
         }
@@ -62,7 +62,12 @@ namespace Synchronizer.Tests
         [TestMethod()]
         public void Exist_is_false()
         {
-            Assert.Inconclusive("Hay que refactorizar el método Exists");
+            var path = @"..\\noexiste\\20160514_195832.jpg";
+            var albumOps = new AlbumOps(path);
+
+            var resultado = albumOps.Exist();
+
+            Assert.IsFalse(resultado);
         }
         [TestMethod()]
         public void Exist_is_true()
@@ -77,7 +82,17 @@ namespace Synchronizer.Tests
             var resultado = albumOps.Exist();
             tabla.Delete(entidad);
 
-            Assert.AreEqual(entidad.RowKey, resultado.RowKey);
+            Assert.IsTrue(resultado);
+        }
+
+        public void AlbumOps_DeleteAlbum()
+        {
+            var path = @"C:\Users\juan.c.quijano.abad\Source\Repos\UniversalSync\SynchronizerTests\20160514_195832.jpg";
+            var albumOps = new AlbumOps(path);
+
+            var resultado = albumOps.Delete();
+
+            Assert.AreEqual("204", resultado, "No ha encontrado el Album SynchronizerTests para borrarlo");
         }
     }
 }
